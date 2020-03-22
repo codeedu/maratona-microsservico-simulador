@@ -5,7 +5,7 @@ steps:
 
   - name: mirror.gcr.io/library/golang
     env: ['GO111MODULE=on']
-    args: ['go', 'build','driver.go']
+    args: ['go', 'build','simulator.go']
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '--tag=gcr.io/$PROJECT_ID/maratona-simulator:$SHORT_SHA', '.']
