@@ -6,62 +6,62 @@ metadata:
     name: simulator-conf
 data:
   env: |
-    RABBITMQ_DEFAULT_USER="xudtdjeq"
-    RABBITMQ_DEFAULT_PASS="UeP8T_fmkEefvvfNLcz3IX70FjPp4sZh"
-    RABBITMQ_DEFAULT_HOST="albatross.rmq.cloudamqp.com"
-    RABBITMQ_DEFAULT_PORT="1883"
-    RABBITMQ_DEFAULT_VHOST="xudtdjeq"
+    RABBITMQ_DEFAULT_USER="admin"
+    RABBITMQ_DEFAULT_PASS="admin"
+    RABBITMQ_DEFAULT_HOST="rabbit-rabbitmq"
+    RABBITMQ_DEFAULT_PORT="5672"
+    RABBITMQ_DEFAULT_VHOST="/"
     RABBITMQ_CONSUMER_QUEUE="positions"
     RABBITMQ_DESTINATION_POSITIONS_EX="amq.direct"
     RABBITMQ_DESTINATION_ROUTING_KEY="mapping.new-position"
 
----
+ ---
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: simulator
-spec:
-  selector:
-    matchLabels:
-      app: simulator
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: simulator
+ spec:
+   selector:
+     matchLabels:
+       app: simulator
 
-  template:
-    metadata:
-      labels:
-        app: simulator
-    spec:
-      containers:
-        - name: simulator
-          image: img-deployment
-          envFrom:
-            - configMapRef:
-                name: simulator-conf
-          volumeMounts:
-          - name: simulator-conf
-            subPath: .env
-            mountPath: /go/src/.env
+   template:
+     metadata:
+       labels:
+         app: simulator
+     spec:
+       containers:
+         - name: simulator
+           image: img-deployment
+           envFrom:
+             - configMapRef:
+                 name: simulator-conf
+           volumeMounts:
+           - name: simulator-conf
+             subPath: .env
+             mountPath: /go/src/.env
 
-      volumes:
-      - name: simulator-conf
-        configMap:
-          name: simulator-conf
-          items:
-            - key: env
-              path: .env
+       volumes:
+       - name: simulator-conf
+         configMap:
+           name: simulator-conf
+           items:
+             - key: env
+               path: .env
 
----
+ ---
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: simulator-service
-  labels:
-    app: simulator-service
-spec:
-  clusterIP: None
-  selector:
-    app: simulator
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: simulator-service
+   labels:
+     app: simulator-service
+ spec:
+   clusterIP: None
+   selector:
+     app: simulator
 
     
   
