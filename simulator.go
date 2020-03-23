@@ -4,19 +4,20 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/streadway/amqp"
 	"log"
 	"os"
 	"simulator/entity"
 	"simulator/queue"
 	"strings"
 	"time"
+
 	"github.com/joho/godotenv"
+	"github.com/streadway/amqp"
 )
 
 var active []string
 
-func init()  {
+func init() {
 	err := godotenv.Load()
 	if err != nil {
 		panic("Error loading .env file")
