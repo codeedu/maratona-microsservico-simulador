@@ -15,7 +15,7 @@ data:
     RABBITMQ_DESTINATION_POSITIONS_EX="amq.direct"
     RABBITMQ_DESTINATION_ROUTING_KEY="mapping.new-position"
 
- ---
+---
 
  apiVersion: apps/v1
  kind: Deployment
@@ -50,7 +50,7 @@ data:
              - key: env
                path: .env
 
- ---
+---
 
  apiVersion: v1
  kind: Service
@@ -62,6 +62,3 @@ data:
    clusterIP: None
    selector:
      app: simulator
-
-    
-  
