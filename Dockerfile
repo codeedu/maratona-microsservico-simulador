@@ -1,6 +1,8 @@
-FROM golang:1.14-alpine
+FROM golang:1.13
+COPY / /
 
-WORKDIR /go/src/
-COPY . .
-RUN GOOS=linux go build simulator.go
-CMD ["./simulator"]
+WORKDIR /
+
+RUN go build simulator.go
+
+ENTRYPOINT ["./simulator"]
